@@ -16,3 +16,9 @@ export interface TokenPayLoad {
   username: string,
   exp?: number;
 }
+
+export interface Order {
+  id: number;
+  userId: number;
+  productsIds: number[];
+}
