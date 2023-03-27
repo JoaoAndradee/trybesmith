@@ -4,3 +4,15 @@ export interface IProducts {
   amount: string;
   orderId?: string;
 }
+
+export interface IUser {
+  username: string;
+  vocation: string;
+  level: number;
+  password: string;
+}
+
+export interface TokenPayLoad {
+  username: string,
+  exp?: number;
+}
