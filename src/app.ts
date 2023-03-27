@@ -1,3 +1,5 @@
+// INICIO DO PROJETO
+
 import express from 'express';
 
 const app = express();
