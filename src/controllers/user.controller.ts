@@ -9,6 +9,14 @@ const addUser = async (req: Request, res: Response) => {
   res.status(201).json({ token });
 };
 
-const userController = { addUser };
+const login = async (req: Request, res: Response) => {
+  const { type, message } = await userService.login(req.body);
+
+  if (type) return res.status(401).json({ message });
+
+  return res.status(200).json({ token: message });
+};
+
+const userController = { addUser, login };
 
 export default userController;

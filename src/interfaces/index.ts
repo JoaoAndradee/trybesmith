@@ -13,6 +13,7 @@ export interface IUser {
 }
 
 export interface TokenPayLoad {
+  id?: number;
   username: string,
   exp?: number;
 }
@@ -21,4 +22,9 @@ export interface Order {
   id: number;
   userId: number;
   productsIds: number[];
+}
+
+export interface ILogin {
+  username: string;
+  password: string;
 }
