@@ -1,3 +1,4 @@
+import { ResultSetHeader } from 'mysql2';
 import { Order } from '../interfaces';
 import connection from './connection';
 
@@ -17,6 +18,27 @@ const getAllOrders = async (): Promise<Order[]> => {
   return result as Order[];
 };
 
-const orderModel = { getAllOrders };
+const createOrders = async (userId: number) => {
+  const [{ insertId }] = await connection.execute<ResultSetHeader>(`
+    INSERT INTO Trybesmith.orders (user_id) VALUES (?);
+  `, [userId]);
+  return insertId;
+};
+
+const updateProductsByOrder = async (productsIds: number[], idUser: number) => {
+  const orderId = await createOrders(idUser);
+
+  productsIds.map((product) => connection.execute(`
+    UPDATE Trybesmith.products
+    SET order_id = ?
+    WHERE id = ?
+  `, [orderId, product]));
+
+  const result = { userId: idUser, productsIds };
+
+  return result;
+};
+
+const orderModel = { getAllOrders, createOrders, updateProductsByOrder };
 
 export default orderModel;

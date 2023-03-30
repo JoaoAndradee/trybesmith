@@ -42,7 +42,6 @@ const validateLevel = (req: Request, res: Response, next: NextFunction) => {
   const { level } = req.body;
 
   if (Number(level) <= 0) {
-    console.log('entrou no if');
     return res.status(422).json({ message: '"level" must be greater than or equal to 1' });
   }
 

@@ -18,17 +18,16 @@ const login = async (user: ILogin) => {
     `,
     [user.username, user.password],
   );
-  console.log('RESULT: ', result);
   return result;
 };
 
-// const findUser = async (username: string): Promise<RowDataPacket | undefined> => {
-//   const [row] = await connection.execute<RowDataPacket[]>(`
-//     SELECT * FROM Trybesmith.users WHERE username = ?
-//   `, [username]);
-//   return row[0];
-// };
+const findUser = async (id: number) => {
+  const [row] = await connection.execute(`
+    SELECT * FROM Trybesmith.users WHERE id = ?
+  `, [id]);
+  return row;
+};
 
-const userModel = { addUser, login };
+const userModel = { addUser, login, findUser };
 
 export default userModel;

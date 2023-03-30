@@ -10,8 +10,8 @@ const JWT_CONFIG: SignOptions = {
 
 const generateToken = (payload:TokenPayLoad) => jwt.sign({ payload }, secret, JWT_CONFIG);
 
-// const verifyToken = (token: string) => jwt.verify(token, secret);
+const verifyToken = (token: string) => jwt.verify(token, secret);
 
-const auth = { generateToken };
+const auth = { generateToken, verifyToken };
 
 export default auth;

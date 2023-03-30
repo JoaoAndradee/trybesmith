@@ -6,6 +6,11 @@ const getAllOrders = async ():Promise<Order[]> => {
   return result;
 };
 
-const orderService = { getAllOrders };
+const updateProductsByOrder = async (productsIds: number[], id: number) => {
+  const result = await orderModel.updateProductsByOrder(productsIds, id);
+  return { type: null, message: result };
+};
+
+const orderService = { getAllOrders, updateProductsByOrder };
 
 export default orderService;

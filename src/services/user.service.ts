@@ -1,3 +1,4 @@
+import { RowDataPacket } from 'mysql2';
 import { ILogin, IUser } from '../interfaces';
 import userModel from '../models/user.model';
 import auth from '../auth/authFunctions';
@@ -9,9 +10,6 @@ const addUser = async (user: IUser) => {
 const login = async (user: ILogin) => {
   const hasUser = await userModel.login(user);
 
-  console.log('USER: ', user);
-  console.log('HASUSER: ', hasUser);
-
   if (hasUser.length === 0) {
     return { type: 'INVALID_FIELDS', message: 'Username or password invalid' };
   }
@@ -21,6 +19,12 @@ const login = async (user: ILogin) => {
   return { type: null, message: token };
 };
 
-const userService = { addUser, login };
+const findUser = async (id: number) => {
+  const result = await userModel.findUser(id) as RowDataPacket;
+  if (result.length <= 0) return { type: 'INVALID_USER', message: 'User do not exist' };
+  return { type: null, message: result };
+};
+
+const userService = { addUser, login, findUser };
 
 export default userService;
